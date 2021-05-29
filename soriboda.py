@@ -24,6 +24,7 @@ from selenium import webdriver
 from bs4 import BeautifulSoup
 import time
 import urllib.request
+import types
 
 ### 광원이 코드
 options = webdriver.ChromeOptions()
@@ -62,15 +63,32 @@ class SoribodaApp(QMainWindow, form_class):
         # 세은이 코드
         self.sign_in()
 
+        # 이루오 코드
         self.btn_recommend.clicked.connect(lambda: self.stackedWidget_2.setCurrentIndex(0))
-        self.btn_search.clicked.connect(lambda: self.stackedWidget_2.setCurrentIndex(1))
+        self.btn_search.clicked.connect(self.go_search_page)
         self.btn_logout.clicked.connect(self.logout)
         self.btn_myinfo.clicked.connect(lambda: self.stackedWidget_2.setCurrentIndex(2))
+
+        self.btn_search_2.clicked.connect(self.search_song)
+        self.search_bar.returnPressed.connect(self.search_song)
 
     def logout(self):
         self.stackedWidget.setCurrentIndex(0)
         self.id_lineEdit_1.clear()
         self.pw_lineEdit_1.clear()
+        self.textBrowser.clear()
+        self.deleteLayout(self.frame_25.layout())
+        for i in range(15): ### [수정시작] 영완 : 05.29 11:02분
+            globals()['G_layout{}'.format(i)].deleteLater() #동적변수 그리드레이아웃 삭제
+            globals()['like_Frame{}'.format(i)].deleteLater()   #동적변수 프레임삭제
+            self.title_btns=[]          #노래제목 버튼삭제
+            self.artist_btns=[]         #가수 버튼 삭제
+            self.images_labels=[]       #이미지 라벨 삭제
+            self.images=[]              #이미지들어있는 내용 삭제
+            self.song_name=[]           #노래제목 내용 삭제
+            self.singer=[]              #가수 내용 삭제
+            self.search_year=[]         #검색 년도범위 삭제
+            ### [수정끝] 영완
 
     ### 세은이 코드 : 로그인 + 회원관리db
     def sign_in(self):
@@ -105,12 +123,18 @@ class SoribodaApp(QMainWindow, form_class):
                 if self.id_lineEdit_1.text() == i and self.pw_lineEdit_1.text() == j:
                     self.label_status.setText('로그인 성공')
                     self.stackedWidget.setCurrentIndex(1)
+                    self.stackedWidget_2.setCurrentIndex(0)
                     self.current_user_id = self.id_lineEdit_1.text()
                     self.current_user_df = self.members_df.loc[self.members_df['id'] == self.current_user_id]
                     print('현재 로그인 정보 df\n',self.current_user_df)
+                    self.user_nick.setText(str(self.current_user_df['nick'].values[0]))
                     self.birthday = str(self.current_user_df['birth_year'].values[0])
+                    self.birth_year.setText(self.birthday)
                     print(self.birthday)
+                    self.apply_user_info()
                     self.check_birthday()
+                    break   #2번도는경우 삭제
+
                 elif self.id_lineEdit_1.text() != i and self.pw_lineEdit_1.text() != j:
                     self.label_status.setText('존재하지 않는 로그인 정보입니다!')
                 elif self.id_lineEdit_1.text() != i:
@@ -189,11 +213,11 @@ class SoribodaApp(QMainWindow, form_class):
             globals()['title_btn{}'.format(i)] = QPushButton()
             globals()['title_btn{}'.format(i)].setStyleSheet('QPushButton {border:None; '
                                                              'text-align:left;'
-                                                             'background-color:rgb(230,230,230);'
+                                                             'background-color:rgb(180, 230, 230);'
                                                              '}'
                                                              'QPushButton:hover{'
                                                              'border-radius: 7px;'
-                                                             'background-color:rgb(245,245,245);'
+                                                             'background-color:rgb(119, 179, 179);'
                                                              '}')
             globals()['title_btn{}'.format(i)].setCursor(QCursor(QtCore.Qt.PointingHandCursor))
             globals()['title_btn{}'.format(i)].setFont(QFont('나눔스퀘어_ac ExtraBold', 13))
@@ -204,7 +228,7 @@ class SoribodaApp(QMainWindow, form_class):
             globals()['artist_btn{}'.format(i)] = QPushButton()
             globals()['artist_btn{}'.format(i)].setStyleSheet('QPushButton {border:None; '
                                                               'text-align:left;'
-                                                              'background-color:rgb(230,230,230);'
+                                                              'background-color:rgb(180, 230, 230);'
                                                               '}')
             globals()['artist_btn{}'.format(i)].setFont(QFont('나눔스퀘어_ac Light', 10))
             globals()['artist_btn{}'.format(i)].setText(self.singer[i])
@@ -225,7 +249,7 @@ class SoribodaApp(QMainWindow, form_class):
 
     # 프레임과 그리드 레이아웃을 동적 변수로 만들어서 QT에 추가시켜 보여주는 함수
     def label_contents_produce(self):
-
+        # self.deleteLayout(self.frame_27.layout())
         for i in range(15):
             globals()['G_layout{}'.format(i)]=QGridLayout()
             globals()['G_layout{}'.format(i)].setContentsMargins(0, 0, 0, 0)
@@ -235,7 +259,7 @@ class SoribodaApp(QMainWindow, form_class):
             globals()['G_layout{}'.format(i)].addWidget(self.artist_btns[i], 1, 1, 1, 4)
             globals()['G_layout{}'.format(i)].addWidget(self.images_labels[i], 0, 0, 2, 2)
             globals()['like_Frame{}'.format(i)]=QFrame()
-            globals()['like_Frame{}'.format(i)].setStyleSheet('QFrame {border:none; background-color:rgb(230,230,230);}')
+            globals()['like_Frame{}'.format(i)].setStyleSheet('QFrame {border:none; background-color:rgb(180, 230, 230);}')
             globals()['like_Frame{}'.format(i)].setMinimumSize(490,80)
             globals()['like_Frame{}'.format(i)].setContentsMargins(0,0,0,0)
             globals()['like_Frame{}'.format(i)].setLayout(globals()['G_layout{}'.format(i)])
@@ -262,6 +286,29 @@ class SoribodaApp(QMainWindow, form_class):
 
     ### 광원이 코드
     def youtube(self, search_word, order_no):
+        try:
+            self.deleteLayout(self.frame_25.layout())
+            self.layout = QVBoxLayout()
+            self.layout.setContentsMargins(0, 0, 0, 0)
+            self.webview = QWebView(self)
+            self.layout.addWidget(self.webview)
+            self.frame_25.setLayout(self.layout)
+            youtube_url = 'https://www.youtube.com/results?search_query=' + search_word
+            wd.get(youtube_url)
+            time.sleep(0.3)
+            html = wd.page_source
+            soupYT = BeautifulSoup(html, 'html.parser')
+            ss = soupYT.select_one('#contents > ytd-video-renderer:nth-child(3) > div > ytd-thumbnail > a')
+            tail = ss.attrs['href'][9:]
+            url = "https://www.youtube.com/embed/" + tail # +'?autoplay=1&mute=1'
+            self.webview.setUrl(QUrl(url))
+            print(search_word)
+            ## 이루오 수정
+            self.search_lylics(self.song_name[order_no], self.singer[order_no])
+        except:
+            self.textBrowser.setText("죄송합니다.\n\n현재 선택하신 곡[{}]은 재생할 수 없습니다.".format(search_word))
+
+    def youtube_2(self, search_word, artist, title):
         self.deleteLayout(self.frame_25.layout())
         self.layout = QVBoxLayout()
         self.layout.setContentsMargins(0, 0, 0, 0)
@@ -270,16 +317,17 @@ class SoribodaApp(QMainWindow, form_class):
         self.frame_25.setLayout(self.layout)
         youtube_url = 'https://www.youtube.com/results?search_query=' + search_word
         wd.get(youtube_url)
-        # time.sleep(0.3)
+        time.sleep(0.3)
         html = wd.page_source
         soupYT = BeautifulSoup(html, 'html.parser')
         ss = soupYT.select_one('#contents > ytd-video-renderer:nth-child(3) > div > ytd-thumbnail > a')
         tail = ss.attrs['href'][9:]
         url = "https://www.youtube.com/embed/" + tail # +'?autoplay=1&mute=1'
         self.webview.setUrl(QUrl(url))
-        # wd.close()
         print(search_word)
-        self.search_lylics(self.song_name[order_no], self.singer[order_no])
+        ## 이루오 수정
+        self.search_lylics(title, artist)
+
 
 
     ### 루오 : 프레임 안 레이아웃 지우기
@@ -294,6 +342,7 @@ class SoribodaApp(QMainWindow, form_class):
                     self.deleteLayout(item.layout())
             sip.delete(layout)
 
+
     ### 용천이 코드
     def search_lylics(self, title, artist):
         naver_URL = 'https://search.naver.com/search.naver?where=nexearch&sm=top_hty&fbm=1&ie=utf8&query='
@@ -302,7 +351,7 @@ class SoribodaApp(QMainWindow, form_class):
                                     options=options)
 
         naver_wd.get(fullURL)
-        time.sleep(1)
+        time.sleep(0.3)
         try:
             naver_wd.find_element_by_class_name("area_button_arrow").click()
         except:
@@ -312,11 +361,29 @@ class SoribodaApp(QMainWindow, form_class):
         lyrics = soup.find('p', class_="text no_ellipsis type_center _content_text")
         print(lyrics)
         try:
-            result = lyrics.get_text()
+            result = lyrics.get_text(separator="\n\n")
             print(result)
             self.textBrowser.setText(result)
         except:
             self.textBrowser.setText("검색된 가사정보가 없습니다.")
+
+    ### 이루오 코드
+    def search_song(self):
+        artist = self.search_bar_2.text()
+        song = self.search_bar.text()
+        search_word = artist + " " + song
+        print(artist, song)
+        self.youtube_2(search_word=search_word, title=song, artist=artist)
+
+    def go_search_page(self):
+        self.stackedWidget_2.setCurrentIndex(1)
+        self.search_bar_2.setText("가수 이름을 입력해주세요")
+        self.search_bar.setText("곡 이름을 입력해주세요")
+
+    def apply_user_info(self):
+        self.user_nick_2.setText(self.current_user_df['nick'].values[0])
+        self.user_age.setText("만 " + str(2021 - int(self.current_user_df['birth_year'].values[0])) + "세")
+        self.user_id.setText(self.current_user_df['id'].values[0])
 
     def initUI(self):
         self.setWindowTitle('음악을 눈으로 즐기다! 소리보다!')

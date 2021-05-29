@@ -131,7 +131,7 @@ QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical{
               </size>
              </property>
              <property name="currentIndex">
-              <number>2</number>
+              <number>0</number>
              </property>
              <widget class="QWidget" name="page">
               <layout class="QVBoxLayout" name="verticalLayout_7">
@@ -922,8 +922,24 @@ QPushButton:hover{
                   <height>70</height>
                  </size>
                 </property>
+                <property name="font">
+                 <font>
+                  <family>나눔스퀘어_ac ExtraBold</family>
+                  <pointsize>13</pointsize>
+                 </font>
+                </property>
                 <property name="cursor">
                  <cursorShape>PointingHandCursor</cursorShape>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true">QPushButton {
+	color: rgb(85, 87, 83);
+}
+QPushButton:hover{
+	border-radius: 6px;
+	color: rgb(255, 255, 255);
+	background-color: rgb(119, 179, 179);
+}</string>
                 </property>
                 <property name="text">
                  <string>추천노래</string>
@@ -938,8 +954,24 @@ QPushButton:hover{
                   <height>70</height>
                  </size>
                 </property>
+                <property name="font">
+                 <font>
+                  <family>나눔스퀘어_ac ExtraBold</family>
+                  <pointsize>13</pointsize>
+                 </font>
+                </property>
                 <property name="cursor">
                  <cursorShape>PointingHandCursor</cursorShape>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true">QPushButton {
+	color: rgb(85, 87, 83);
+}
+QPushButton:hover{
+	border-radius: 6px;
+	color: rgb(255, 255, 255);
+	background-color: rgb(119, 179, 179);
+}</string>
                 </property>
                 <property name="text">
                  <string>노래검색</string>
@@ -978,6 +1010,9 @@ QPushButton:hover{
               </property>
               <item>
                <widget class="QStackedWidget" name="stackedWidget_2">
+                <property name="currentIndex">
+                 <number>2</number>
+                </property>
                 <widget class="QWidget" name="page_reco">
                  <property name="styleSheet">
                   <string notr="true">border: none;</string>
@@ -1024,7 +1059,7 @@ QPushButton:hover{
                        <x>0</x>
                        <y>0</y>
                        <width>506</width>
-                       <height>598</height>
+                       <height>590</height>
                       </rect>
                      </property>
                      <property name="minimumSize">
@@ -1056,11 +1091,100 @@ QPushButton:hover{
                        <number>0</number>
                       </property>
                       <item>
-                       <layout class="QVBoxLayout" name="verticalLayout_10">
-                        <property name="spacing">
-                         <number>10</number>
+                       <widget class="QFrame" name="frame_27">
+                        <property name="frameShape">
+                         <enum>QFrame::StyledPanel</enum>
                         </property>
-                       </layout>
+                        <property name="frameShadow">
+                         <enum>QFrame::Raised</enum>
+                        </property>
+                        <layout class="QVBoxLayout" name="verticalLayout_8">
+                         <item>
+                          <widget class="QFrame" name="frame_30">
+                           <property name="minimumSize">
+                            <size>
+                             <width>0</width>
+                             <height>30</height>
+                            </size>
+                           </property>
+                           <property name="maximumSize">
+                            <size>
+                             <width>16777215</width>
+                             <height>30</height>
+                            </size>
+                           </property>
+                           <property name="styleSheet">
+                            <string notr="true">background-color: rgb(119, 179, 179)</string>
+                           </property>
+                           <property name="frameShape">
+                            <enum>QFrame::StyledPanel</enum>
+                           </property>
+                           <property name="frameShadow">
+                            <enum>QFrame::Raised</enum>
+                           </property>
+                           <layout class="QHBoxLayout" name="horizontalLayout_10">
+                            <property name="spacing">
+                             <number>0</number>
+                            </property>
+                            <property name="leftMargin">
+                             <number>0</number>
+                            </property>
+                            <property name="topMargin">
+                             <number>0</number>
+                            </property>
+                            <property name="rightMargin">
+                             <number>0</number>
+                            </property>
+                            <property name="bottomMargin">
+                             <number>0</number>
+                            </property>
+                            <item>
+                             <widget class="QLabel" name="birth_year">
+                              <property name="maximumSize">
+                               <size>
+                                <width>70</width>
+                                <height>16777215</height>
+                               </size>
+                              </property>
+                              <property name="font">
+                               <font>
+                                <family>나눔스퀘어_ac Bold</family>
+                                <pointsize>10</pointsize>
+                               </font>
+                              </property>
+                              <property name="text">
+                               <string/>
+                              </property>
+                              <property name="alignment">
+                               <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                              </property>
+                             </widget>
+                            </item>
+                            <item>
+                             <widget class="QLabel" name="label_5">
+                              <property name="font">
+                               <font>
+                                <family>나눔스퀘어_ac Light</family>
+                                <pointsize>10</pointsize>
+                               </font>
+                              </property>
+                              <property name="text">
+                               <string> 년생을 위한 추천노래 목록입니다.</string>
+                              </property>
+                             </widget>
+                            </item>
+                           </layout>
+                          </widget>
+                         </item>
+                         <item>
+                          <layout class="QVBoxLayout" name="verticalLayout_10">
+                           <property name="spacing">
+                            <number>10</number>
+                           </property>
+                          </layout>
+                         </item>
+                        </layout>
+                       </widget>
                       </item>
                      </layout>
                     </widget>
@@ -1068,8 +1192,263 @@ QPushButton:hover{
                   </item>
                  </layout>
                 </widget>
-                <widget class="QWidget" name="page_search"/>
-                <widget class="QWidget" name="page_myinfo"/>
+                <widget class="QWidget" name="page_search">
+                 <layout class="QVBoxLayout" name="verticalLayout_14">
+                  <item>
+                   <widget class="QFrame" name="frame_28">
+                    <property name="frameShape">
+                     <enum>QFrame::StyledPanel</enum>
+                    </property>
+                    <property name="frameShadow">
+                     <enum>QFrame::Raised</enum>
+                    </property>
+                    <layout class="QHBoxLayout" name="horizontalLayout_8">
+                     <item alignment="Qt::AlignTop">
+                      <widget class="QLineEdit" name="search_bar_2">
+                       <property name="minimumSize">
+                        <size>
+                         <width>150</width>
+                         <height>40</height>
+                        </size>
+                       </property>
+                       <property name="font">
+                        <font>
+                         <family>나눔스퀘어_ac Light</family>
+                         <pointsize>11</pointsize>
+                        </font>
+                       </property>
+                       <property name="toolTip">
+                        <string extracomment="가수명을 입력하세요"/>
+                       </property>
+                       <property name="styleSheet">
+                        <string notr="true">border-radius: 5px;
+background-color: rgb(255, 255, 255)</string>
+                       </property>
+                       <property name="text">
+                        <string extracomment="가수 이름을 입력하세요">가수 이름을 입력해주세요</string>
+                       </property>
+                       <property name="alignment">
+                        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                       </property>
+                      </widget>
+                     </item>
+                     <item alignment="Qt::AlignTop">
+                      <widget class="QLineEdit" name="search_bar">
+                       <property name="minimumSize">
+                        <size>
+                         <width>150</width>
+                         <height>40</height>
+                        </size>
+                       </property>
+                       <property name="font">
+                        <font>
+                         <family>나눔스퀘어_ac Light</family>
+                         <pointsize>11</pointsize>
+                        </font>
+                       </property>
+                       <property name="toolTip">
+                        <string extracomment="곡 이름을 입력하세요"/>
+                       </property>
+                       <property name="styleSheet">
+                        <string notr="true">border-radius: 5px;
+background-color: rgb(255, 255, 255)</string>
+                       </property>
+                       <property name="text">
+                        <string extracomment="곡 이름을 입력하세요">곡 이름을 입력해주세요</string>
+                       </property>
+                       <property name="alignment">
+                        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                       </property>
+                      </widget>
+                     </item>
+                     <item alignment="Qt::AlignTop">
+                      <widget class="QPushButton" name="btn_search_2">
+                       <property name="minimumSize">
+                        <size>
+                         <width>60</width>
+                         <height>40</height>
+                        </size>
+                       </property>
+                       <property name="font">
+                        <font>
+                         <family>나눔스퀘어_ac ExtraBold</family>
+                         <pointsize>11</pointsize>
+                        </font>
+                       </property>
+                       <property name="cursor">
+                        <cursorShape>PointingHandCursor</cursorShape>
+                       </property>
+                       <property name="styleSheet">
+                        <string notr="true">QPushButton {
+	color: rgb(85, 87, 83);
+}
+QPushButton:hover{
+	border-radius: 6px;
+	color: rgb(255, 255, 255);
+	background-color: rgb(119, 179, 179);
+}</string>
+                       </property>
+                       <property name="text">
+                        <string>검색</string>
+                       </property>
+                      </widget>
+                     </item>
+                    </layout>
+                   </widget>
+                  </item>
+                 </layout>
+                </widget>
+                <widget class="QWidget" name="page_myinfo">
+                 <layout class="QVBoxLayout" name="verticalLayout_15">
+                  <item>
+                   <widget class="QFrame" name="frame_31">
+                    <property name="frameShape">
+                     <enum>QFrame::StyledPanel</enum>
+                    </property>
+                    <property name="frameShadow">
+                     <enum>QFrame::Raised</enum>
+                    </property>
+                    <layout class="QFormLayout" name="formLayout">
+                     <property name="horizontalSpacing">
+                      <number>10</number>
+                     </property>
+                     <property name="verticalSpacing">
+                      <number>15</number>
+                     </property>
+                     <property name="topMargin">
+                      <number>30</number>
+                     </property>
+                     <item row="0" column="0">
+                      <widget class="QLabel" name="label_3">
+                       <property name="minimumSize">
+                        <size>
+                         <width>90</width>
+                         <height>30</height>
+                        </size>
+                       </property>
+                       <property name="font">
+                        <font>
+                         <family>나눔스퀘어_ac</family>
+                         <pointsize>13</pointsize>
+                        </font>
+                       </property>
+                       <property name="text">
+                        <string>닉네임</string>
+                       </property>
+                       <property name="alignment">
+                        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                       </property>
+                      </widget>
+                     </item>
+                     <item row="0" column="1">
+                      <widget class="QLineEdit" name="user_nick_2">
+                       <property name="minimumSize">
+                        <size>
+                         <width>150</width>
+                         <height>30</height>
+                        </size>
+                       </property>
+                       <property name="maximumSize">
+                        <size>
+                         <width>150</width>
+                         <height>16777215</height>
+                        </size>
+                       </property>
+                       <property name="styleSheet">
+                        <string notr="true">border-radius: 5px;
+background-color: rgb(255, 255, 255)</string>
+                       </property>
+                      </widget>
+                     </item>
+                     <item row="1" column="0">
+                      <widget class="QLabel" name="label_6">
+                       <property name="minimumSize">
+                        <size>
+                         <width>90</width>
+                         <height>30</height>
+                        </size>
+                       </property>
+                       <property name="font">
+                        <font>
+                         <family>나눔스퀘어_ac</family>
+                         <pointsize>13</pointsize>
+                        </font>
+                       </property>
+                       <property name="text">
+                        <string>나이</string>
+                       </property>
+                       <property name="alignment">
+                        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                       </property>
+                      </widget>
+                     </item>
+                     <item row="1" column="1">
+                      <widget class="QLineEdit" name="user_age">
+                       <property name="minimumSize">
+                        <size>
+                         <width>150</width>
+                         <height>30</height>
+                        </size>
+                       </property>
+                       <property name="maximumSize">
+                        <size>
+                         <width>150</width>
+                         <height>16777215</height>
+                        </size>
+                       </property>
+                       <property name="styleSheet">
+                        <string notr="true">border-radius: 5px;
+background-color: rgb(255, 255, 255)</string>
+                       </property>
+                      </widget>
+                     </item>
+                     <item row="2" column="0">
+                      <widget class="QLabel" name="label_7">
+                       <property name="minimumSize">
+                        <size>
+                         <width>90</width>
+                         <height>30</height>
+                        </size>
+                       </property>
+                       <property name="font">
+                        <font>
+                         <family>나눔스퀘어_ac</family>
+                         <pointsize>13</pointsize>
+                        </font>
+                       </property>
+                       <property name="text">
+                        <string>아이디</string>
+                       </property>
+                       <property name="alignment">
+                        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                       </property>
+                      </widget>
+                     </item>
+                     <item row="2" column="1">
+                      <widget class="QLineEdit" name="user_id">
+                       <property name="minimumSize">
+                        <size>
+                         <width>150</width>
+                         <height>30</height>
+                        </size>
+                       </property>
+                       <property name="maximumSize">
+                        <size>
+                         <width>150</width>
+                         <height>16777215</height>
+                        </size>
+                       </property>
+                       <property name="styleSheet">
+                        <string notr="true">border-radius: 5px;
+background-color: rgb(255, 255, 255)</string>
+                       </property>
+                      </widget>
+                     </item>
+                    </layout>
+                   </widget>
+                  </item>
+                 </layout>
+                </widget>
                 <widget class="QWidget" name="page_2"/>
                </widget>
               </item>
@@ -1078,6 +1457,12 @@ QPushButton:hover{
            </item>
            <item>
             <widget class="QFrame" name="frame_18">
+             <property name="minimumSize">
+              <size>
+               <width>0</width>
+               <height>20</height>
+              </size>
+             </property>
              <property name="maximumSize">
               <size>
                <width>16777215</width>
@@ -1108,8 +1493,29 @@ QPushButton:hover{
               </property>
               <item>
                <widget class="QPushButton" name="btn_logout">
+                <property name="minimumSize">
+                 <size>
+                  <width>0</width>
+                  <height>20</height>
+                 </size>
+                </property>
+                <property name="font">
+                 <font>
+                  <family>나눔스퀘어_ac Bold</family>
+                 </font>
+                </property>
                 <property name="cursor">
                  <cursorShape>PointingHandCursor</cursorShape>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true">QPushButton {
+	color: rgb(85, 87, 83);
+}
+QPushButton:hover{
+	border-radius: 6px;
+	color: rgb(255, 255, 255);
+	background-color: rgb(119, 179, 179);
+}</string>
                 </property>
                 <property name="text">
                  <string>로그아웃</string>
@@ -1118,8 +1524,29 @@ QPushButton:hover{
               </item>
               <item>
                <widget class="QPushButton" name="btn_myinfo">
+                <property name="minimumSize">
+                 <size>
+                  <width>0</width>
+                  <height>20</height>
+                 </size>
+                </property>
+                <property name="font">
+                 <font>
+                  <family>나눔스퀘어_ac Bold</family>
+                 </font>
+                </property>
                 <property name="cursor">
                  <cursorShape>PointingHandCursor</cursorShape>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true">QPushButton {
+	color: rgb(85, 87, 83);
+}
+QPushButton:hover{
+	border-radius: 6px;
+	color: rgb(255, 255, 255);
+	background-color: rgb(119, 179, 179);
+}</string>
                 </property>
                 <property name="text">
                  <string>내정보</string>
@@ -1151,6 +1578,62 @@ QPushButton:hover{
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_12">
            <item>
+            <widget class="QFrame" name="frame_29">
+             <property name="minimumSize">
+              <size>
+               <width>0</width>
+               <height>50</height>
+              </size>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">background-color: rgb(119, 179, 179)</string>
+             </property>
+             <property name="frameShape">
+              <enum>QFrame::StyledPanel</enum>
+             </property>
+             <property name="frameShadow">
+              <enum>QFrame::Raised</enum>
+             </property>
+             <layout class="QHBoxLayout" name="horizontalLayout_9">
+              <item>
+               <widget class="QLabel" name="user_nick">
+                <property name="font">
+                 <font>
+                  <family>나눔스퀘어_ac ExtraBold</family>
+                  <pointsize>15</pointsize>
+                 </font>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true">color: rgb(255, 255, 255);</string>
+                </property>
+                <property name="text">
+                 <string/>
+                </property>
+                <property name="alignment">
+                 <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLabel" name="label_4">
+                <property name="font">
+                 <font>
+                  <family>나눔스퀘어_ac Light</family>
+                  <pointsize>15</pointsize>
+                 </font>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true">color: rgb(255, 255, 255);</string>
+                </property>
+                <property name="text">
+                 <string>님,  어서오세요!</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </widget>
+           </item>
+           <item>
             <widget class="QFrame" name="frame_25">
              <property name="minimumSize">
               <size>
@@ -1168,6 +1651,12 @@ QPushButton:hover{
            </item>
            <item>
             <widget class="QFrame" name="frame_26">
+             <property name="styleSheet">
+              <string notr="true">QFrame{
+	color: rgb(255, 255, 255);
+	background-color: rgb(119, 179, 179);
+}</string>
+             </property>
              <property name="frameShape">
               <enum>QFrame::StyledPanel</enum>
              </property>
@@ -1176,7 +1665,19 @@ QPushButton:hover{
              </property>
              <layout class="QVBoxLayout" name="verticalLayout_13">
               <item>
-               <widget class="QTextBrowser" name="textBrowser"/>
+               <widget class="QTextBrowser" name="textBrowser">
+                <property name="font">
+                 <font>
+                  <family>나눔스퀘어_ac Bold</family>
+                  <pointsize>12</pointsize>
+                  <weight>75</weight>
+                  <bold>true</bold>
+                 </font>
+                </property>
+                <property name="horizontalScrollBarPolicy">
+                 <enum>Qt::ScrollBarAlwaysOff</enum>
+                </property>
+               </widget>
               </item>
              </layout>
             </widget>
