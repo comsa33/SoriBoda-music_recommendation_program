@@ -32,15 +32,15 @@ options.add_argument('window-size=1920x1080')
 options.add_argument("disable-gpu")
 # 혹은 options.add_argument("--disable-gpu")
 
-wd = webdriver.Chrome('/home/ruo/PycharmProjects/pythonProject/SoriBoda-main/chromedriver', options=options)
+wd = webdriver.Chrome('C:\\Users\\user\\PycharmProjects\\PYQT_Project_1\\SoriBoda-main\\chromedriver.exe', options=options)
 
-form_class = uic.loadUiType("/home/ruo/PycharmProjects/pythonProject/SoriBoda-main/soriboda.ui")[0]
+form_class = uic.loadUiType("soriboda.ui")[0]
 
 class SoribodaApp(QMainWindow, form_class):
     ### 세은이 코드 변수
     members = {}  # 회원 정보 딕셔너리
     # 회원 정보 1개 이상일 때 주석 제거
-    con = sqlite3.connect('/home/ruo/PycharmProjects/pythonProject/SoriBoda-main/SBmembers.db')
+    con = sqlite3.connect('SBmembers.db')
     cur = con.cursor()
     members_df = pd.read_sql('SELECT * FROM SBmembers', con)
     id_result = list(members_df['id'])
@@ -50,14 +50,7 @@ class SoribodaApp(QMainWindow, form_class):
     print(members_df)
 
     ### 영완이 코드 변수
-    search_year = []    #검색할 년도 리스트
-    title_btns=[]       #노래제목이 들어갈 리스트       (프레임안에들어갈리스트)
-    artist_btns=[]      #가수가 들어갈 리스트          (프레임안에들어갈리스트)
-    images_labels=[]    #앨범 이미지가 들어갈 리스트    (프레임안에들어갈리스트)
-    images=[]           #잠시 이미지를 넣어둘 리스트     (db에서 뽑아오기 위함)
-    song_name=[]        #잠시 노래제목을 넣어둘 리스트   (db에서 뽑아오기 위함)
-    singer=[]           #잠시 가수이름을 넣어둘 리스트   (db에서 뽑아오기 위함)
-    con = sqlite3.connect("/home/ruo/PycharmProjects/pythonProject/SoriBoda-main/소리보다_sql.db")        #sql데이터
+    con = sqlite3.connect("소리보다_sql.db")        #sql데이터
     music_df = pd.read_sql("SELECT * FROM 노래", con, index_col='index')    #sql판다스식으로 변경
 
     def __init__(self):
@@ -141,6 +134,8 @@ class SoribodaApp(QMainWindow, form_class):
             con = sqlite3.connect('SBmembers.db')
             res.to_sql('SBmembers', con, if_exists='append')
             members_df = pd.read_sql('SELECT * FROM SBmembers', con)
+            self.id_result = list(members_df['id'])
+            self.pw_result = list(members_df['pw'])
 
             print('\n',members_df)
 
@@ -149,6 +144,14 @@ class SoribodaApp(QMainWindow, form_class):
     ### 영완이 코드 : 노래 추천
     # 생년월일 중 2000년이 넘어가면 2000년생으로 설정해 15개가 무조건 나오는 함수
     def check_birthday(self):
+        self.search_year = []  # 검색할 년도 리스트
+        self.title_btns = []  # 노래제목이 들어갈 리스트       (프레임안에들어갈리스트)
+        self.artist_btns = []  # 가수가 들어갈 리스트          (프레임안에들어갈리스트)
+        self.images_labels = []  # 앨범 이미지가 들어갈 리스트    (프레임안에들어갈리스트)
+        self.images = []  # 잠시 이미지를 넣어둘 리스트     (db에서 뽑아오기 위함)
+        self.song_name = []  # 잠시 노래제목을 넣어둘 리스트   (db에서 뽑아오기 위함)
+        self.singer = []  # 잠시 가수이름을 넣어둘 리스트   (db에서 뽑아오기 위함)
+
         if int(self.birthday)>=2000:
             self.birthday='2000'
             self.start_year = int(self.birthday) + 15
@@ -259,14 +262,13 @@ class SoribodaApp(QMainWindow, form_class):
 
     ### 광원이 코드
     def youtube(self, search_word, order_no):
-
         self.deleteLayout(self.frame_25.layout())
         self.layout = QVBoxLayout()
         self.layout.setContentsMargins(0, 0, 0, 0)
         self.webview = QWebView(self)
         self.layout.addWidget(self.webview)
         self.frame_25.setLayout(self.layout)
-        youtube_url = 'https://www.youtube.com/results?search_query=' + search_word + '노래'
+        youtube_url = 'https://www.youtube.com/results?search_query=' + search_word
         wd.get(youtube_url)
         # time.sleep(0.3)
         html = wd.page_source
@@ -279,6 +281,8 @@ class SoribodaApp(QMainWindow, form_class):
         print(search_word)
         self.search_lylics(self.song_name[order_no], self.singer[order_no])
 
+
+    ### 루오 : 프레임 안 레이아웃 지우기
     def deleteLayout(self, layout):
         if layout is not None:
             while layout.count():
@@ -294,7 +298,8 @@ class SoribodaApp(QMainWindow, form_class):
     def search_lylics(self, title, artist):
         naver_URL = 'https://search.naver.com/search.naver?where=nexearch&sm=top_hty&fbm=1&ie=utf8&query='
         fullURL = naver_URL + artist + " " + title + " " + '가사'
-        naver_wd = webdriver.Chrome('/home/ruo/PycharmProjects/pythonProject/SoriBoda-main/chromedriver_2', options=options)
+        naver_wd = webdriver.Chrome('C:\\Users\\user\\PycharmProjects\\PYQT_Project_1\\SoriBoda-main\\chromedriver.exe',
+                                    options=options)
 
         naver_wd.get(fullURL)
         time.sleep(1)
@@ -306,9 +311,12 @@ class SoribodaApp(QMainWindow, form_class):
         soup = BeautifulSoup(html, 'html.parser')
         lyrics = soup.find('p', class_="text no_ellipsis type_center _content_text")
         print(lyrics)
-        result = lyrics.get_text()
-        print(result)
-        self.textBrowser.setText(result)
+        try:
+            result = lyrics.get_text()
+            print(result)
+            self.textBrowser.setText(result)
+        except:
+            self.textBrowser.setText("검색된 가사정보가 없습니다.")
 
     def initUI(self):
         self.setWindowTitle('음악을 눈으로 즐기다! 소리보다!')
